@@ -9,6 +9,8 @@ client = OpenAI(
 )
 and 
 Use Notepad's one-click replacement function to replace this sentence "You are a coding assistant who can complete programs independently." or "You are an assistant helping with mathematical reasoning."
+# python dependencies
+pip install PyQt5 numpy openai PyMuPDF chromadb transformers sentence-transformers treelib
 
 # This is the original paper, of which I am not the author.
 
@@ -16,3 +18,4 @@ https://arxiv.org/abs/2406.07394
 
 # py file with the word coding (for writing code)
 # py file without the word coding (for math)
+
