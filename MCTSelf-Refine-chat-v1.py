@@ -64,6 +64,7 @@ class MCTSelfRefine:
         response = client.chat.completions.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            timeout=468,
             messages=[
                 {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
                 {"role": "user", "content": prompt}
@@ -91,6 +92,7 @@ class MCTSelfRefine:
         response = client.chat.completions.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            timeout=468,
             messages=[
                 {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
                 {"role": "user", "content": f"Here is an answer: {answer}. Improve and refine this answer."}
@@ -106,6 +108,7 @@ class MCTSelfRefine:
         response = client.chat.completions.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            timeout=468,
             messages=[
                 {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
                 {"role": "user", "content": f"Question: {prompt}\n\nAnswer: {answer}\n\n{rubric}"}
