@@ -67,6 +67,7 @@ class MCTSelfRefine:
         response = client.chat.completions.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            timeout=468,
             messages=[
                 {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
                 {"role": "user", "content": prompt}
@@ -99,13 +100,13 @@ class MCTSelfRefine:
             {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
             {"role": "user", "content": f"Here is an answer: {answer}. Provide a critical comment on this answer."}
         ]
-        comment_response = client.chat.completions.create(model=self.model, max_tokens=self.max_tokens, messages=refine_prompt)
+        comment_response = client.chat.completions.create(model=self.model, timeout=468, max_tokens=self.max_tokens, messages=refine_prompt)
         comment = comment_response.choices[0].message.content.strip()
 
         refine_prompt.append({"role": "assistant", "content": comment})
         refine_prompt.append({"role": "user", "content": "Now, improve and refine this answer based on your critical comment."})
 
-        refined_response = client.chat.completions.create(model=self.model, max_tokens=self.max_tokens, messages=refine_prompt)
+        refined_response = client.chat.completions.create(model=self.model, timeout=468, max_tokens=self.max_tokens, messages=refine_prompt)
         refined_answer = refined_response.choices[0].message.content.strip()
 
         return refined_answer, comment
@@ -118,7 +119,7 @@ class MCTSelfRefine:
             {"role": "system", "content": "You are an assistant helping with mathematical reasoning."},
             {"role": "user", "content": f"Question: {prompt}\n\nAnswer: {answer}\n\nRate the correctness and completeness of the answer on a scale of -100 to 100. Be fair but strict."}
         ]
-        response = client.chat.completions.create(model=self.model, max_tokens=self.max_tokens, messages=scoring_prompt)
+        response = client.chat.completions.create(model=self.model, timeout=468, max_tokens=self.max_tokens, messages=scoring_prompt)
         try:
             score = float(response.choices[0].message.content.strip())
         except ValueError:
